@@ -103,7 +103,14 @@ SPB_hyerpol1.dat	value of number of spikes per burst during the hyperpolarizatio
 --- Figure 3A ---
 [Power point] Schematic draw of the computational experiment 
 
---- Figure 3B-C ---
+
+--- Figure 3B ---
+Voltage-dependent time constants are evaluated at Vth. 
+• Run: tau_collect.m
+• Data: matrix T_TOT
+
+
+--- Figure 3C-D ---
 Effect on a varying CaT activation time constant on rhythmic network robustness.
 
 • File: Tau>_Analysis>…
