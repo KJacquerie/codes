@@ -156,6 +156,83 @@ Figures are extracted from Figure 5 to illustrate how we sort data.
 (that can be found in LFP_TAU>_Analysis>Figures>name>…) 
 Functions
 
+--------------------
+ Figure 6 | DIC
+--------------------
+
+Simulations of the reduced models under different activation of the T-type calcium channel: A. membrane voltage recordings, B. Phase portrait in tonic mode, C. Phase portrait at the saddle node bifurcation.
+All the data were previously saved in saveNULL.mat
+
+• File: DIC>Drion>phaseplane>...
+• Run: Final_Figure.m
+• Saved Figures: >Fig/PP_[varNAME]_V.eps (for the membrane voltage time-course), Fig/PP_[varNAME]_tonic.eps (for the phase portrait during tonic mode) and Fig/PP_[varNAME]_SN.eps (for the phase portrait at the saddle node bifurcation)
+The variable 'idx' indicates the line in saveNULL.mat at a given multiplicative factors of tau_mCaT
+idx=5 : fast activation - varNAME= 50
+idx=10: slow activation - varNAME = 1
+idx=15: ultraslow activation - varNAME=550
+
+Details about each fonction is given in section --- Folder: DIC ---
+
+
+--------------------
+ Figure 7 | DIC
+--------------------
+Simulations of the reduced models under different values of the membrane capacitance: 
+
+--- Figures A
+• File: DIC>Drion>phaseplane>...
+• Run: Final_Figure_CVar.m
+• Saved Figures: >Fig/C[value]_V.eps (for the membrane voltage time course), Fig/C[value]_SN.eps (phase portrait at the saddle node bifurcation)
+
+--- Figures B
+• File: DIC>Wang>phaseplane>...
+• Run: Final_Figure_CVar.m
+• Saved Figures: >Fig/C[value]_V.eps (for the membrane voltage time course), Fig/C[value]_SN.eps (phase portrait at the saddle node bifurcation)
+
+
+----------------------
+ Video S1 to S3 | DIC
+----------------------
+Video of the evolution of the membrane voltage and its associated phase portrait under different kinetics of the CaT channel activation (for the reduced model 1). 
+
+• File: DIC>Drion>phaseplane>...
+• Run: Simu_Drion_DIC_KD.m
+• Saved videos: video_PP_50.mp4 (fast) [S1], video_PP_1.mp4 (slow) [S2], video_PP_550.mp4 (ultraslow) [S3]
+
+----------------------
+ Video S4    | DIC
+----------------------
+Video of the phase portrait distortion when the time constant is scaled from a small value (fast activation) to a large value (ultraslow activation). 
+
+• File: DIC>Drion>...
+• Run: video_PP_deform.m
+• Saved video: in the current folder: sample.mp4
+
+The code loops into saveNULL.mat where the phase portrait of the reduced model 1 was saved (thanks to calcul_SN.m). 
+
+----------------------
+ Video S5-S6 | DIC
+----------------------
+Video of the evolution of the membrane voltage and its associated phase portrait at two given membrane capacitance value for the reduced model 1. 
+
+• File: DIC>Drion>phaseplane>...
+• Run: Simu_Drion_DIC_KD_C.m
+• The variable 'idx' indicates the colonne in saveC.mat at a given multiplicative factors of tau_mCaT
+idx=10: slow activation - varNAME = 1
+idx_C indicates the line in saveC.mat for a given membrane capacitance value.
+• Saved videos: video_C1.mp4 (nominal value of Cm) [S7] and video_C2.mp4 (Cm/3) [S8]
+
+
+----------------------
+ Video S7-S8 | DIC
+----------------------
+Video of the evolution of the membrane voltage and its associated phase portrait at two given membrane capacitance value for the reduced model 5.
+
+• File: DIC>Wang>phaseplane>...
+• Run: Simu_Wang_DIC_Cvar.m
+• idx_C indicates the line in saveC.mat for a given membrane capacitance value.
+• Saved videos: video_C1.mp4 (nominal value of Cm) [S7] and video_C2.mp4 (Cm/3) [S8]
+
 
 ----------------------
  Folder: Single-cells
@@ -240,5 +317,80 @@ Load Julia data (LFP recording) and compute the LFP spectrogram.
 
 --- Plot_LFP.m
 Display LFP recording from Julia data.
+
+
+----------------------
+Folder: DIC
+----------------------
+For each model, you will find the same code adapted with the equations associated to each model:  I am presenting the folder Drion. 
+DIC>Drion>Julia: contains the codes of the model equations and the function to solve the differential equations (Drion_model_DIC_KD.jl) and the code with the parameter values and to launch the solver (Simu_Drion_DIC_KD.jl) in Julia. 
+
+DIC>Drion>phaseplane: contains the codes to generate Fig6 and Fig7 and all the functions that permits the reduction of the model 1 and the visualization of the phase portrait. 
+
+--- boltz.m
+Theoretical equation for the steady state formule of the activation and inactivation variable
+
+--- build_var_cont_anal_KD.m
+When a model is reduced following the dynamic input conductance protocols, the activation and inactivation variables are replaced by a weighted sum. This function is useful to compute the weight for the CaT activation at different scaled time constant.
+
+--- calcul_SN.m
+This code computes the saddle node bifurcation under different CaT activation channel time constant. It saves the symbolic equation of the V-nullcline in a cell called saveNULL.mat
+
+--- DIC_X.m
+Function computing the weighting sum of the activation or inactivation variable (mi(V) or hi(V)).
+
+--- dist_DIC.m
+Function computing the weights for the dynamic input conductance decomposition [Drion, 2015]
+
+--- dV.m
+Derivative of the membrane voltage (used in the differential equation resolution of dV/dt)
+
+--- dVs_KD.m
+Derivative of the slow variable (used in the differential equation resolution of dVs/dt)
 	
+--- dVus.m
+Derivative of the ultraslow variable (used in the differential equation resolution of dVus/dt)
+
+--- Final_Figure_Cvar.m
+Code used to obtain Fig7 (by loading the saved equations of the null clines) 
+
+--- Final_Figure.m
+Code associated to Fig6. Change the idx value to see the result under the fast, slow and ultraslow conditions.
+
+--- hCaTinf.m, hNainf.m, mCaTinf.m, mHinf.m, mKCainf.m, mKdinf.m, mNainf.m
+Steady state equation of the activation and inactivation variables
+
+--- plot_contribution.m
+Code generating plots of the weights (DIC) at different CaT activation time constant. 
+
+--- saveC.mat
+Cell array containing the recording of V and the nullcline evaluated at the saddle node bifurcation
+
+--- saveNULL.mat
+Cell array containing the nullcline evaluated at the saddle node bifurcation, the value of Vus at the saddle node bifurcation, the recording of V, Vs and Vus
+
+--- Simu_Drion_DIC_C.m
+This code solves the differential equations associated to the model 1 for different membrane capacitance. It generates videos in mp4 format or in Matlab (evolution of the membrane voltage simultaneously with the evolution of its phase portrait). It also allows visualisation of the phase portrait in tonic mode or at a given time. 
+
+--- Simu_Drion_DIC_KD.m
+This code solves the differential equations associated to the model 1 for different time constant of CaT channel activation. It generates in mp4 format or in Matlab (evolution of the membrane voltage simultaneously with the evolution of its phase portrait). It also allows visualisation of the phase portrait in tonic mode or at a given time. 
+
+--- tauhCaT.m, tauhNA.m, taumCaT_VAR.m, taumH.m, taumNa.m
+Time constant function of the activation and inactivation variables
+
+--- tauX.m
+Theoretical equation for the time constant of the channel activation and inactivation.
+
+--- var_contribution_SYM.m
+Function to check the weights (DIC) written as symbolic equations (useful shape to plot the nullcline)
+
+--- var_contribution.m
+Function that compute the weights (DIC) in numerical form
+
+--- varCOEF.mat
+Cell array containing the parameter values (or scaling factor) of the current and conductances for the reduced model 1. Each line is associated to a different scale CaT time constant. 
+
+--- video_PP_deform.m
+Function generating the video of the phase portrait evolution at different scaled CaT time constant.
+
 
