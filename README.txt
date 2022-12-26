@@ -1,7 +1,7 @@
 ----------------------------------------------------------------------------------------------------------------------------------
 Robust switches in thalamic network activity require a timescale separation between sodium and T-type calcium channel activations
 Kathleen Jacquerie and Guillaume Drion
-(October 2020) Julia and Matlab codes related to the article
+(October 2020) Julia and Matlab codes related to the article https://doi.org/10.1371/journal.pcbi.1008997
 ----------------------------------------------------------------------------------------------------------------------------------
 
 
